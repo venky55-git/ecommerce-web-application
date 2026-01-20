@@ -1,0 +1,75 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Shipping Address{% endblock %}
+
+
+{% block content %}
+<div class="address-container">
+    <h2>Shipping Address</h2>
+    
+    {% if addresses %}
+    <h3>Select an existing address:</h3>
+    <div class="address-grid">
+        {% for address in addresses %}
+        <div class="address-card {% if address.is_default %}selected{% endif %}" 
+             onclick="selectAddress({{ address.id }})">
+            <div class="address-type">{{ address.get_address_type_display }}</div>
+            <div class="address-details">
+                {{ address.street }}<br>
+                {{ address.city }}, {{ address.state }} - {{ address.postal_code }}<br>
+                {{ address.country }}
+            </div>
+            {% if address.is_default %}
+            <div class="address-default">Default Address</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="address-form">
+        <h3>{% if addresses %}Or add a new address{% else %}Add your shipping address{% endif %}</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.address_type.label_tag }}
+                {{ form.address_type }}
+            </div>
+            <div class="form-group">
+                {{ form.street.label_tag }}
+                {{ form.street }}
+            </div>
+            <div class="form-group">
+                {{ form.city.label_tag }}
+                {{ form.city }}
+            </div>
+            <div class="form-group">
+                {{ form.state.label_tag }}
+                {{ form.state }}
+            </div>
+            <div class="form-group">
+                {{ form.postal_code.label_tag }}
+                {{ form.postal_code }}
+            </div>
+            <div class="form-group">
+                {{ form.country.label_tag }}
+                {{ form.country }}
+            </div>
+            <div class="form-group">
+                <label>
+                    {{ form.is_default }} Set as default address
+                </label>
+            </div>
+            <button type="submit" class="btn btn-continue">Continue to Payment</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function selectAddress(addressId) {
+        // In a real implementation, you would set this as the selected address
+        // via AJAX or form submission
+        window.location.href = `/checkout/payment/?address_id=${addressId}`;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-s8" />
+  <title>buy now register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+</head>
+<body>
+
+    <div class="left">
+        <div class="cart-animation">
+          <img id="cart-icon" src="{% static 'image/cart.png' %}" alt="Cart Icon" width="100">
+           <strong id="cart-message"><img src="{% static 'image/buy now logo.png' %}" alt="logo" class="logpage" style="height: 80px; width: auto;" /></strong>
+           <hr>
+          <P> wlecome to buy now please register to continue shopping</P>
+        </div>
+      </div>
+        <div class="right">
+           
+            <form class="register-form" method="POST" novalidate>
+                <h2>Register page</h2>
+                {% csrf_token %}
+                <!-- Username Field -->
+                <div >
+                    <label for="username">Username</label>
+                    <input name="username" id="username"  placeholder="Enter your username" required />
+                    {% if form.username.errors %}
+                        <div class="text-danger">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required />
+                    {% if form.email.errors %}
+                        <div class="text-danger">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="password1">Password</label>
+                    <input type="password" name="password1" id="password1" placeholder="Create a password" required >
+                    {% if form.password1.errors %}
+                        <div class="text-danger">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div>
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" name="password2" id="password2" placeholder="Confirm your password" required >
+                    {% if form.password2.errors %}
+                        <div class="text-danger">
+                            {% for error in form.password2.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                 <!-- Submit Button -->
+                 <div>
+                    <button type="submit">register</button>
+                </div>
+            
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
+            </form>
+
+        </div>
+        <script src="{% static 'js/animation.js' %}"></script>
+</body>
+</html>

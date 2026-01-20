@@ -1,0 +1,58 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <div class="account-sidebar">
+        {% include 'shop/account/account_sidebar.html' %}
+    </div>
+    <div class="account-content">
+        <h2>Account Overview</h2>
+        <div class="account-details">
+            <div class="detail-card">
+                <h3>Personal Information</h3>
+                <p><strong>Name:</strong> {{ user.get_full_name|default:"Not set" }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <a href="{% url 'edit_profile' %}" class="btn btn-edit">Edit Profile</a>
+            </div>
+           <div class="detail-card">
+               <h3>Default Address</h3>
+             {% if default_address %}
+                 <p>{{ default_address.street }}</p>
+                 <p>{{ default_address.city }}, {{ default_address.state }} {{ default_address.postal_code }}</p>
+                 <p>{{ default_address.country }}</p>
+             {% else %}
+             <p>No default address set</p>
+             {% endif %}
+              <a href="{% url 'address_list' %}" class="btn btn-edit">Manage Addresses</a>
+            </div>
+        </div>
+        <div class="recent-orders">
+            <h3>Recent Orders</h3>
+            {% with recent_orders=user.order_set.all|slice:":3" %}
+                {% if recent_orders %}
+                    <div class="orders-list">
+                        {% for order in recent_orders %}
+                        <div class="order-item">
+                            <div class="order-info">
+                                <p class="order-id">Order #{{ order.id }}</p>
+                                <p class="order-date">{{ order.created_at|date:"M d, Y" }}</p>
+                                <p class="order-status">{{ order.get_status_display }}</p>
+                                <p class="order-total">₹{{ order.total_price }}</p>
+                            </div>
+                            <a href="#" class="btn btn-view">View Details</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'order_history' %}" class="btn btn-view-all">View All Orders</a>
+                {% else %}
+                    <p>You haven't placed any orders yet.</p>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}

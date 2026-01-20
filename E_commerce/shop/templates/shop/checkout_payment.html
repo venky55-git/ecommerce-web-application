@@ -1,0 +1,59 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Payment Method{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <h2>Payment Method</h2>
+    
+    <div class="order-summary">
+        <h3>Order Summary</h3>
+        <p>Total: ₹{{ cart.total_price }}</p>
+    </div>
+    
+    <div class="address-section">
+        <h3>Shipping Address</h3>
+        <p>{{ address.street }}</p>
+        <p>{{ address.city }}, {{ address.state }} - {{ address.postal_code }}</p>
+        <p>{{ address.country }}</p>
+        <a href="{% url 'checkout_address' %}" class="change-address">Change address</a>
+    </div>
+    
+    <form method="post" class="payment-methods">
+        {% csrf_token %}
+        <h3>Select Payment Method</h3>
+        
+        <div class="payment-options">
+            <!-- Cash on Delivery -->
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="COD" checked>
+                <div class="payment-method-content">
+                    <div class="payment-icon cod-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="payment-details">
+                        <strong>Cash on Delivery</strong>
+                        <p>Pay when you receive your order</p>
+                    </div>
+                </div>
+            </label>
+
+            <!-- Digital Payments -->
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="DIGITAL">
+                <div class="payment-method-content">
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="payment-details">
+                        <strong>UPI/Net Banking</strong>
+                        <p>Pay via PhonePe, Paytm, Google Pay, etc.</p>
+                    </div>
+                </div>
+            </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary proceed-btn">Place Order</button>
+    </form>
+</div>
+ {% endblock %}

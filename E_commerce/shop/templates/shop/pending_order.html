@@ -1,0 +1,132 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<div class="pending-orders-container">
+    <div class="pending-orders-nav" style="margin-bottom: 18px;">
+        <a href="{% url 'admin_dashboard' %}" class="pending-orders-back-btn">Back to Admin Dashboard</a>
+    </div>
+    <h2 class="pending-orders-title">Pending Orders</h2>
+    <div class="pending-orders-list">
+        {% for order in orders %}
+        <div class="pending-order-item">
+            <div class="pending-order-header">Order ID: {{ order.id }}</div>
+            <div class="pending-order-user">User: {{ order.user.username }}</div>
+            <div class="pending-order-items">
+                <ul>
+                {% for item in order.items.all %}
+                    <li>{{ item.product.name }} (x{{ item.quantity }})</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="pending-order-actions">
+                <a href="{% url 'approve_order' order.id %}" class="pending-order-btn approve">Delivery</a>
+                <a href="{% url 'reject_order' order.id %}" class="pending-order-btn reject">Cancel</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="pending-order-empty">No pending orders found.</div>
+        {% endfor %}
+    </div>
+</div>
+<style>
+.pending-orders-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    background:linear-gradient(to left, rgba(180, 233, 237, 0.907),rgba(240, 175, 186, 0.905))  ;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 32px 24px;
+}
+.pending-orders-nav {
+    text-align: left;
+}
+.pending-orders-back-btn {
+    display: inline-block;
+    background: #2b6cb0;
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+.pending-orders-back-btn:hover {
+    background: #234e7d;
+}
+.pending-orders-title {
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 2rem;
+    color: #2d3748;
+    letter-spacing: 1px;
+}
+.pending-orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.pending-order-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 18px 20px;
+    background: #f9fafb;
+    transition: box-shadow 0.2s;
+}
+.pending-order-item:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+.pending-order-header {
+    font-weight: 600;
+    color: #2b6cb0;
+    margin-bottom: 6px;
+}
+.pending-order-user {
+    color: #4a5568;
+    margin-bottom: 8px;
+}
+.pending-order-items ul {
+    margin: 0 0 10px 0;
+    padding-left: 18px;
+}
+.pending-order-items li {
+    color: #2d3748;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+.pending-order-actions {
+    margin-top: 10px;
+}
+.pending-order-btn {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-right: 10px;
+    transition: background 0.2s, color 0.2s;
+}
+.pending-order-btn.approve {
+    background: #38a169;
+    color: #fff;
+}
+.pending-order-btn.approve:hover {
+    background: #2f855a;
+}
+.pending-order-btn.reject {
+    background: #e53e3e;
+    color: #fff;
+}
+.pending-order-btn.reject:hover {
+    background: #c53030;
+}
+.pending-order-empty {
+    text-align: center;
+    color: #a0aec0;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+</style>
+{% endblock %}

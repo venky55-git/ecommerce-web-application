@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice #{{ order.id }}</title>
+    <link rel="stylesheet" href="{% static 'css/invoice_template.css' %}">
+</head>
+<body>
+    <div class="invoice-header">
+        <div>
+            <div class="company-address">
+                <img src="{% static 'image/buy now logo.png' %}" alt="logo" style="height: 35px; width: auto;" /><br>
+                123 Business Street<br>
+                City, State - 123456<br>
+                India
+            </div>
+        </div>
+        <div class="invoice-title">INVOICE</div>
+        <div class="invoice-details">
+            <div><strong>Invoice #{{ order.id }}</strong></div>
+            <div>Date: {{ order.created_at|date:"F j, Y" }}</div>
+        </div>
+    </div>
+    
+    <div class="customer-address">
+        <strong>Bill To:</strong><br>
+        {% if user %}
+            {{ user.first_name }} {{ user.last_name }}<br>
+        {% else %}
+            <span style="color:red;">User not found</span><br>
+        {% endif %}
+        {% if order.shipping_address %}
+            {{ order.shipping_address }}
+        {% else %}
+            <span style="color:red;">Shipping address not found</span>
+        {% endif %}
+    </div>
+    
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if order.items.all|length > 0 %}
+                {% for item in order.items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>₹{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td class="text-right">₹{{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" style="color:red; text-align:center;">No items found for this order</td>
+                </tr>
+            {% endif %}
+            <tr class="total-row">
+                <td colspan="3">Total</td>
+                <td class="text-right">₹{{ order.total_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="payment-info">
+        <strong>Payment Method:</strong> {{ order.payment_set.first.get_payment_method_display }}<br>
+        <strong>Status:</strong> {{ order.get_status_display }}
+    </div>
+    
+    <div class="footer">
+        Thank you for your business!<br>
+        For any inquiries, please contact support@bBuynow.com
+    </div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BUY NOW login_page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+      flex-direction: row;
+    }
+
+    .left {
+      flex: 1;
+      background: linear-gradient( #d4eba7, #9be042d1);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px;
+      padding-left: 80px;
+    }
+
+    .left p {
+      margin-top: 2ch;
+      font-size: 1.5rem;
+      font-weight: 700;
+      max-width: 800px;
+      line-height: 1.5;
+      color: #262222ec;
+      margin-left: 0%;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .left strong {
+      padding-left: 9ch;
+    }
+
+    .right {
+      flex: 1;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 30px;
+    }
+
+    .login-form {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .login-form h2 {
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    .login-form label {
+      display: block;
+      margin-top: 10px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 8px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: border 0.3s;
+    }
+
+    .login-form input:focus {
+      border-color: #28a745;
+      outline: none;
+    }
+
+    .login-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+
+    .login-form button:hover {
+      background-color: #218838;
+    }
+
+    .login-form p {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .login-form a {
+      color: #28a745;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-form a:hover {
+      text-decoration: underline;
+    }
+
+    /* Cart Animation Styles */
+    .cart-animation {
+      position: relative;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #cart-icon {
+      width: 80px;
+      transition: transform 2s ease;
+      border-radius: 50px;
+    }
+
+    .move-cart {
+      transform: translateX(220px);
+    }
+
+    #cart-message {
+      font-size: 32px;
+      margin: 20px 0;
+      color: #96db0c;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+
+    .logpage {
+      height: 80px;
+      width: auto;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      body {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        width: 100%;
+        padding: 30px;
+      }
+
+      .left {
+        align-items: center;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .left p {
+        font-size: 1rem;
+      }
+
+      .login-form {
+        padding: 25px;
+        box-shadow: none;
+      }
+      
+      .cart-animation {
+        align-items: center;
+      }
+      
+      #cart-icon {
+        width: 60px;
+      }
+      
+      .move-cart {
+        transform: translateX(120px);
+      }
+      
+      #cart-message {
+        font-size: 24px;
+        margin-top: 15px;
+      }
+    }
+
+    /* Tablet Responsiveness */
+    @media (min-width: 601px) and (max-width: 1024px) {
+      body {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        width: 100%;
+        padding: 40px;
+      }
+
+      .left {
+        align-items: center;
+        text-align: center;
+      }
+
+      .left p {
+        font-size: 1.1rem;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  
+  <div class="left">
+    <div class="cart-animation">
+      <img id="cart-icon" src="{% static 'image/cart.png' %}" alt="Cart Icon" width="100">
+      <strong id="cart-message"><img src="{% static 'image/buy now logo.png' %}" alt="logo" class="logpage" /></strong>
+      <hr>
+      <p style='color:#262222ec;'>Welcome to Buy Now, your one-stop shop for everything you need!</p>
+      <p style='color:#262222ec;'>Buy Now offers unbeatable prices across electronics, fashion, and more. With fast shipping and secure checkout, Buy Now is the future of online shopping</p>
+    </div>
+  </div>
+
+  <div class="right">
+    <form class="login-form" action="/accounts/login/" method="POST">
+      {% csrf_token %}
+      <h2>Login</h2>
+      <label for="username">Username</label>
+      <input name="username" id="username" placeholder="Enter your username" required>
+      <label for="password">Password</label>
+      <input name="password" id="password" type="password" placeholder="Enter your password" required>
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a href="{% url 'signup' %}">Register</a></p>
+    </form>
+  </div>
+  <script src="{% static 'js/animation.js' %}"></script>
+
+</body>
+</html>

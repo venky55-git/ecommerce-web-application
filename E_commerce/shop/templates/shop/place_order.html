@@ -1,0 +1,55 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Place Order - {{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="order-container">
+    <h2>Place Order</h2>
+    
+    <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="product-info">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            <div class="product-details">
+                <h4>{{ product.name }}</h4>
+                <p>Price: ₹{{ product.price }}</p>
+                <p>Category: {{ product.get_category_display }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="shipping-info">
+        <h3>Shipping Information</h3>
+        {% if default_address %}
+            <div class="address-card">
+                <p>{{ default_address.street }}</p>
+                <p>{{ default_address.city }}, {{ default_address.state }} {{ default_address.postal_code }}</p>
+                <p>{{ default_address.country }}</p>
+                <a href="{% url 'address_list' %}" class="btn btn-change">Change Address</a>
+            </div>
+        {% else %}
+            <p>No default address set. Please add a shipping address first.</p>
+            <a href="{% url 'add_address' %}" class="btn btn-primary">Add Address</a>
+            <a href="{% url 'user_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+        {% endif %}
+    </div>
+    
+    {% if default_address %}
+    <div class="payment-method">
+        <h3>Payment Method</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>
+                    <input type="radio" name="payment_method" value="COD" checked>
+                    Cash on Delivery
+                </label>
+            </div>
+            <button type="submit" class="btn btn-confirm">Confirm Order</button>
+            <a href="{% url 'user_dashboard' %}" class="btn btn-cancel">Cancel</a>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

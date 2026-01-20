@@ -1,0 +1,61 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Order Confirmation{% endblock %}
+
+
+{% block content %}
+<div class="confirmation-container">
+    <div class="success-icon">✓</div>
+    <h2>Thank You for Your Order!</h2>
+    <p>Your order has been placed successfully.</p>
+    
+    <div class="order-details">
+        <div class="detail-row">
+            <div class="detail-label">Order Number:</div>
+            <div>#{{ order.id }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Order Date:</div>
+            <div>{{ order.created_at|date:"F j, Y" }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Total Amount:</div>
+            <div>₹{{ order.total_price }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Payment Method:</div>
+            <div>{{ payment.get_payment_method_display }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Payment Status:</div>
+            <div>{{ payment.get_status_display }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Estimated Delivery:</div>
+            <div>{{ order.estimated_delivery|date:"F j, Y" }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Shipping Address:</div>
+            <div>{{ order.shipping_address }}</div>
+        </div>
+    </div>
+    
+    <p>We've sent a confirmation email to your registered email address.</p>
+    
+    <div class="action-buttons">
+        <a href="{% url 'view_invoice' order.id %}" class="btn btn-invoice">View Invoice</a>
+        <a href="{% url 'product_list' %}" class="btn btn-continue">Continue Shopping</a>
+    </div>
+</div>
+
+{% if payment_error %}
+<div class="payment-error">
+    <h3>Payment Processing Error</h3>
+    <p>We encountered an issue processing your payment:</p>
+    <p><strong>{{ payment_error }}</strong></p>
+    <p>Your order has been placed but is pending payment.</p>
+    <p>Please contact support if the amount was deducted from your account.</p>
+    <a href="{% url 'checkout_payment' %}" class="btn btn-retry">Retry Payment</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,118 @@
+/* Admin Orders Styles */
+.admin-orders-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+.admin-orders-title {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.orders-table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.orders-table-header {
+    background-color: #2d3748;
+    color: white;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.order-row:hover {
+    background-color: #f5f5f5;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-default {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.order-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.approve-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.no-action {
+    color: #6c757d;
+}
+
+.empty-row td {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+}
+
+.admin-nav {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.admin-back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.admin-back-btn:hover {
+    background-color: #0056b3;
+}

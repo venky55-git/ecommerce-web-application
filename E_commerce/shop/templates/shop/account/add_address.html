@@ -1,0 +1,86 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Add New Address{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <div class="account-sidebar">
+        {% include 'shop/account/account_sidebar.html' %}
+    </div>
+    <div class="account-content">
+        <div class="address-form-container">
+            <h2>Add New Address</h2>
+            
+            <form method="post" class="address-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.address_type.id_for_label }}">Address Type</label>
+                    {{ form.address_type }}
+                    {% if form.address_type.errors %}
+                        <div class="error">{{ form.address_type.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.street.id_for_label }}">Street Address</label>
+                    {{ form.street }}
+                    {% if form.street.errors %}
+                        <div class="error">{{ form.street.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.city.id_for_label }}">City</label>
+                        {{ form.city }}
+                        {% if form.city.errors %}
+                            <div class="error">{{ form.city.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.state.id_for_label }}">State</label>
+                        {{ form.state }}
+                        {% if form.state.errors %}
+                            <div class="error">{{ form.state.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.postal_code.id_for_label }}">Postal Code</label>
+                        {{ form.postal_code }}
+                        {% if form.postal_code.errors %}
+                            <div class="error">{{ form.postal_code.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.country.id_for_label }}">Country</label>
+                        {{ form.country }}
+                        {% if form.country.errors %}
+                            <div class="error">{{ form.country.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    {{ form.is_default }}
+                    <label for="{{ form.is_default.id_for_label }}">Set as default address</label>
+                    {% if form.is_default.errors %}
+                        <div class="error">{{ form.is_default.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-save">Save Address</button>
+                    <a href="{% url 'address_list' %}" class="btn btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

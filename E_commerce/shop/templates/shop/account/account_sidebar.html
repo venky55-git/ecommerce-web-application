@@ -1,0 +1,26 @@
+<div class="account-user">
+    <div class="account-avatar">
+        <i class="fas fa-user-circle"></i>
+    </div>
+    <div class="account-info">
+        <h4>{{ user.username }}</h4>
+        <p>{{ user.email }}</p>
+    </div>
+</div>
+<ul class="account-menu">
+    <li {% if request.resolver_match.url_name == 'my_account' %}class="active"{% endif %}>
+        <a href="{% url 'my_account' %}"><i class="fas fa-user"></i> Account Overview</a>
+    </li>
+    <li {% if request.resolver_match.url_name == 'edit_profile' %}class="active"{% endif %}>
+        <a href="{% url 'edit_profile' %}"><i class="fas fa-user-edit"></i> Edit Profile</a>
+    </li>
+    <li {% if request.resolver_match.url_name == 'address_list' %}class="active"{% endif %}>
+        <a href="{% url 'address_list' %}"><i class="fas fa-map-marker-alt"></i> My Addresses</a>
+    </li>
+    <li {% if request.resolver_match.url_name == 'order_history' %}class="active"{% endif %}>
+        <a href="{% url 'order_history' %}"><i class="fas fa-shopping-bag"></i> Order History</a>
+    </li>
+    <li {% if request.resolver_match.url_name == 'wishlist' %}class="active"{% endif %}>
+        <a href="{% url 'wishlist' %}"><i class="fas fa-heart"></i> Wishlist</a>
+    </li>
+</ul>

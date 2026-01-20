@@ -1,0 +1,42 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <p class="product-price">₹{{ product.price }}</p>
+            
+            {% if product.avg_rating %}
+                <div class="rating">
+                    {% with avg_rating=product.avg_rating|floatformat:0 %}
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= avg_rating %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                        ({{ product.reviews.count }})
+                    {% endwith %}
+                </div>
+            {% endif %}
+            
+            <div class="product-actions">
+                <a href="{% url 'product_detail' product.id %}" class="btn btn-outline">View</a>
+                <form action="{% url 'add_to_cart' product.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

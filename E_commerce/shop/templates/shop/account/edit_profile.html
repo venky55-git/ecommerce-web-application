@@ -1,0 +1,33 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <div class="account-sidebar">
+        <!-- Same sidebar as my_account.html -->
+        {% include 'shop/account/account_sidebar.html' %}
+    </div>
+    <div class="account-content">
+        <h2>Edit Profile</h2>
+        <form method="post" class="account-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_first_name">First Name</label>
+                {{ form.first_name }}
+            </div>
+            <div class="form-group">
+                <label for="id_last_name">Last Name</label>
+                {{ form.last_name }}
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email }}
+            </div>
+            <button type="submit" class="btn btn-save">Save Changes</button>
+            <a href="{% url 'my_account' %}" class="btn btn-cancel">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

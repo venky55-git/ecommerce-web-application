@@ -1,0 +1,113 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %}
+<div class="admin-orders-container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 class="admin-orders-title">All Orders (Admin View)</h2>
+        <a href="{% url 'admin_dashboard' %}" class="admin-back-btn" style="margin-left:auto; min-width:170px; text-align:center; background:#1976d2; color:#fff; padding:10px 18px; border-radius:6px; text-decoration:none; font-weight:600;">Back to Dashboard</a>
+    </div>
+
+    <div class="orders-table-container">
+        <table class="orders-table">
+            <thead>
+                <tr class="orders-table-header">
+                    <th>User</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Order Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr class="order-row">
+                    <td>{{ order.user.username }}</td>
+                    <td>
+                        <table class="order-items-table">
+                            {% for item in order.items.all %}
+                            <tr>
+                                <td>
+                                    {% if item.product and item.product.name %}
+                                        {{ item.product.name }}
+                                    {% else %}
+                                    <span style="color:red; font-weight:bold;">Product not linked or missing name</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr><td style="color:red;">No items</td></tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                    <td>
+                        <table class="order-items-table">
+                            {% for item in order.items.all %}
+                            <tr>
+                                <td>
+                                    {% if item.quantity %}
+                                        {{ item.quantity }}
+                                    {% else %}
+                                    <span style="color:red; font-weight:bold;">Quantity missing</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                        <tr><td style="color:red; font-weight:bold;">No quantities for this order</td></tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                    <td>
+                        <span class="status-badge 
+                            {% if order.status == 'P' %}status-pending
+                            {% elif order.status == 'PR' %}status-approved
+                            {% elif order.status == 'C' %}status-rejected
+                            {% else %}status-default{% endif %}">
+                            {{ order.get_status_display }}
+                        </span>
+                    </td>
+                    <td>{{ order.created_at }}</td>
+                    <td class="order-actions">
+                        {% if order.status == 'P' %}
+                            <a href="{% url 'approve_order' order.id %}" class="action-btn approve-btn">delivery</a>
+                            <a href="{% url 'reject_order' order.id %}" class="action-btn reject-btn">cancel</a>
+                        {% else %}
+                            <span class="no-action">-</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="empty-row">
+                    <td colspan="6">No orders found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    {% if is_paginated %}
+    <div class="pagination" style="text-align:center; margin:20px 0;">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" style="margin-right:8px;">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" style="margin-right:8px;">Previous</a>
+            {% endif %}
+
+            <span class="current" style="font-weight:bold; color:#1976d2;">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" style="margin-left:8px;">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" style="margin-left:8px;">Last</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+
+    <div class="admin-nav">
+        <a href="{% url 'admin_dashboard' %}" class="admin-back-btn">Back to Admin Dashboard</a>
+    </div>
+</div>
+{% endblock %}

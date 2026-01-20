@@ -1,0 +1,64 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <div class="account-sidebar">
+        {% include 'shop/account/account_sidebar.html' %}
+    </div>
+    <div class="account-content">
+        <h2>Order History</h2>
+        
+        {% if orders %}
+        <div class="orders-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.created_at|date:"M d, Y" }}</td>
+                        <td><span class="status-badge {{ order.status|lower }}">{{ order.get_status_display }}</span></td>
+                        <td>₹{{ order.total_price }}</td>
+                        <td><a href="{% url 'view_invoice' order.id %}" class="btn btn-view">View Details</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>You haven't placed any orders yet.</p>
+        {% endif %}
+    <!-- Pagination Controls -->
+    {% if is_paginated %}
+    <div class="pagination" style="text-align:center; margin:20px 0;">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" style="margin-right:8px;">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" style="margin-right:8px;">Previous</a>
+            {% endif %}
+
+            <span class="current" style="font-weight:bold; color:#1976d2;">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" style="margin-left:8px;">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" style="margin-left:8px;">Last</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

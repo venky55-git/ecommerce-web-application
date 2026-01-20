@@ -1,0 +1,90 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+ <div style="text-align:right; margin-top:32px;margin-right: 20px;">
+        <a href="{% url 'admin_dashboard' %}" class="admin-back-btn" style="display:inline-block; background:#1976d2; color:#fff; padding:12px 28px; border-radius:6px; text-decoration:none; font-weight:600; font-size:1.08rem;">Back to Dashboard</a>
+    </div>
+<div class="sales-report-container">
+    <h2 class="sales-report-title">Sales Report</h2>
+    <div class="sales-table-wrapper">
+        <table class="sales-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Total Units Sold</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in report %}
+                <tr>
+                    <td>{{ item.product__name }}</td>
+                    <td>{{ item.total_sold }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No sales data available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+.sales-report-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 32px 24px 24px 24px;
+}
+.sales-report-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 28px;
+    color: #1976d2;
+    letter-spacing: 1px;
+}
+.sales-table-wrapper {
+    overflow-x: auto;
+}
+.sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fafbfc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 1.08rem;
+}
+.sales-table th, .sales-table td {
+    padding: 14px 18px;
+    text-align: left;
+}
+.sales-table th {
+    background: #1976d2;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #1565c0;
+}
+.sales-table tr:nth-child(even) {
+    background: #f1f5fa;
+}
+.sales-table tr:nth-child(odd) {
+    background: #fff;
+}
+.sales-table td {
+    color: #222;
+}
+.sales-table tr:hover {
+    background: #e3f0fc;
+    transition: background 0.2s;
+}
+.sales-table td[colspan="2"] {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+}
+   
+</style>
+{% endblock %}

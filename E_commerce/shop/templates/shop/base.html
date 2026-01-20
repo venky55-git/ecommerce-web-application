@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUY NOW</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/my_orders.css' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout_address.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/checkout_payment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/order_confirmation.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all_orders.css' %}">
+</head>
+<body>
+    <nav class="navbar" style="background-">
+       <div class="top-bar">
+    <a href="/" class="logo">
+        <img src="{% static 'image/buy now logo.png' %}" alt="logo" style="height:50px; width:auto;">
+    </a>
+
+    
+
+        <div class="search-category-container" style="display: flex; align-items: center; flex-grow: 1; max-width: 800px; margin: 0 2rem;">
+    <!-- Combined Search and Category Form -->
+    <form method="GET" action="{% url 'home' %}" class="search-category-form" style="display: flex; width: 100%;">
+        <!-- Category Dropdown -->
+        <div class="categories_list" style="margin-right: 10px; min-width: 180px;">
+            <select name="category" id="category-select" style="padding: 0.6rem 1rem; border-radius: 24px; border: 1px solid #d1d5db; background-color: #f8f9fa; cursor: pointer; width: 100%; height: 100%;">
+                <option value="">All Categories</option>
+                {% for key, value in categories %}
+                <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container" style="flex-grow: 1; position: relative;">
+            <input type="text" name="search" class="search-bar" placeholder="Search products..." 
+                   value="{{ request.GET.search }}" 
+                   style="width: 100%; padding: 0.6rem 1rem; padding-right: 2.5rem; border: 1px solid #d1d5db; border-radius: 24px; font-size: 0.9rem; outline: none; transition: all 0.3s ease; background-color: #f8f9fa;">
+            <button type="submit" class="search-icon-btn" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                <i class="fas fa-search" style="color: #6b7280;"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+    <div class="quick-access">
+        <!-- Your existing quick access items -->
+        <div class="quick-access-item" id="favorites-btn">
+            <i class="fas fa-heart"></i>
+            <a href="{% url 'wishlist' %}">
+                Wishlist <span class="badge">{{ wishlist_count }}</span>
+            </a>
+        </div>
+        <div class="quick-access-item" id="cart-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <a href="{% url 'cart' %}">
+                Cart <span class="badge">{{ cart_count }}</span>
+            </a>
+        </div>
+        <div class="account-dropdown quick-access-item">
+            <i class="fas fa-user"></i>
+            <span>My Account</span>
+            <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
+            <div class="dropdown-content">
+                {% if user.is_authenticated %}
+                <a href="{% url 'my_account' %}">Profile</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                </form>
+                {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+        
+        <div class="main-nav">
+            <div class="nav-links">
+                <a href="{% url 'home'%}" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#" class="nav-link"><i class="fa-solid fa-eye"></i> Best Sellers</a>
+                <a href="{% url 'electronics' %}" class="nav-link"><i class="fa-solid fa-mobile"></i> mobile</a>
+                <a href="{% url 'fashion' %}" class="nav-link"><i class="fa-solid fa-shirt"></i> Fashion</a>
+            </div>
+            
+            <div class="nav-actions">
+                <div class="location-selector">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Deliver to: <a href="{% url 'checkout_address' %}">Change Address</a></span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="language-selector">
+                    <i class="fas fa-globe"></i>
+                    <span>English (USA)</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div class="">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>Shop</h3>
+            <ul>
+                <li><a href="#all-products">All Products</a></li>
+                <li><a href="#new-arrivals">New Arrivals</a></li>
+                <li><a href="#">Featured</a></li>
+                <li><a href="#">Deals & Promotions</a></li>
+                <li><a href="#">Gift Cards</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Customer Service</h3>
+            <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Shipping Policy</a></li>
+                <li><a href="#">Returns & Exchanges</a></li>
+                <li><a href="#">Track Order</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <ul>
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-column">
+            <h3>Connect With Us</h3>
+            <ul>
+                <li><a href="https://www.facebook.com/">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Pinterest</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="footer-bottom">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+        </div>
+
+
+        <p>&copy; 2025 BUY NOW. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: #e53e3e;"></i> for shoppers worldwide</p>
+    
+    </div>
+</footer>
+
+   <script src="{% static 'js/home.js' %}"></script>
+   <script src="{% static 'js/base.js' %}"></script>
+   <script src="{% static 'js/checkout_payment.js' %}"></script>
+</body>
+</html>

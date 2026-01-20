@@ -1,0 +1,232 @@
+{% extends 'shop/base.html' %}
+
+
+{% block title %}Fashion - Buy Now{% endblock %}
+
+{% block content %}
+<div class="fashion-container">
+    <div class="fashion-sidebar">
+        <h3>Filters</h3>
+        
+        <!-- Category Filter -->
+        <div class="filter-section">
+            <h4>Category</h4>
+            <ul class="filter-options">
+                <li><a href="?category=men" class="{% if request.GET.category == 'men' %}active{% endif %}">Men</a></li>
+                <li><a href="?category=women" class="{% if request.GET.category == 'women' %}active{% endif %}">Women</a></li>
+                <li><a href="?category=kids" class="{% if request.GET.category == 'kids' %}active{% endif %}">Kids</a></li>
+                <li><a href="?category=footwear" class="{% if request.GET.category == 'footwear' %}active{% endif %}">Footwear</a></li>
+            </ul>
+        </div>
+        
+        <!-- Price Filter -->
+        <div class="filter-section">
+            <h4>Price</h4>
+            <ul class="filter-options">
+                <li><a href="?price=0-500" class="{% if request.GET.price == '0-500' %}active{% endif %}">Under ₹500</a></li>
+                <li><a href="?price=500-1000" class="{% if request.GET.price == '500-1000' %}active{% endif %}">₹500 - ₹1000</a></li>
+                <li><a href="?price=1000-2000" class="{% if request.GET.price == '1000-2000' %}active{% endif %}">₹1000 - ₹2000</a></li>
+                <li><a href="?price=2000" class="{% if request.GET.price == '2000' %}active{% endif %}">Above ₹2000</a></li>
+            </ul>
+        </div>
+        
+        <!-- Size Filter -->
+        <div class="filter-section">
+            <h4>Size</h4>
+            <div class="size-options">
+                {% for size in sizes %}
+                <a href="?size={{ size }}" class="size-chip {% if request.GET.size == size %}active{% endif %}">{{ size }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Color Filter -->
+        <div class="filter-section">
+            <h4>Color</h4>
+            <div class="color-options">
+                {% for color in colors %}
+                <a href="?color={{ color }}" class="color-chip {% if request.GET.color == color %}active{% endif %}" style="background-color: {{ color }};"></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="fashion-products">
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">₹{{ product.price }}</p>
+                    <div class="product-actions">
+                        <a href="{% url 'product_detail' product.id %}" class="view-btn">View</a>
+                        <a href="{% url 'add_to_cart' product.id %}" class="cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="no-products">No products found matching your filters.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .fashion-container {
+        display: flex;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+    
+    .fashion-sidebar {
+        width: 250px;
+        padding: 10px;
+    }
+    
+    .fashion-products {
+        flex: 1;
+    }
+    
+    .filter-section {
+        margin-bottom: 25px;
+    }
+    
+    .filter-section h4 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+    }
+    
+    .filter-options {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .filter-options li {
+        margin-bottom: 8px;
+    }
+    
+    .filter-options a {
+        display: block;
+        padding: 5px 10px;
+        color: #555;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+    
+    .filter-options a:hover, .filter-options a.active {
+        background-color: #e0b0b0ff;
+        color: #0066cc;
+    }
+    
+    .size-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .size-chip {
+        display: inline-block;
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #555;
+        text-decoration: none;
+    }
+    
+    .size-chip:hover, .size-chip.active {
+        background-color: #0066cc;
+        color: white;
+        border-color: #0066cc;
+    }
+    
+    .color-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .color-chip {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+    }
+    
+    .color-chip:hover, .color-chip.active {
+        border-color: #0066cc;
+    }
+    
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .product-card {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .product-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    
+    .product-info {
+        padding: 15px;
+    }
+    
+    .product-info h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+    }
+    
+    .price {
+        font-weight: bold;
+        color: #0066cc;
+        margin: 0 0 15px;
+    }
+    
+    .product-actions {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .view-btn, .cart-btn {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        text-decoration: none;
+    }
+    
+    .view-btn {
+        color: #0066cc;
+        border: 1px solid #0066cc;
+    }
+    
+    .cart-btn {
+        background-color: #0066cc;
+        color: white;
+    }
+    
+    .no-products {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 50px 0;
+        color: #666;
+    }
+</style>
+{% endblock %}
