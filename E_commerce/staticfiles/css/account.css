@@ -1,0 +1,223 @@
+/* account.css */
+.account-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.account-sidebar {
+    width: 250px;
+    background: #f8f9fa;
+    border-right: 1px solid #e5e5e5;
+}
+
+.account-user {
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.account-avatar {
+    font-size: 4rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.account-info h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.account-info p {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.account-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.account-menu li {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.account-menu li a {
+    display: block;
+    padding: 1rem;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.account-menu li a:hover {
+    background: #e9ecef;
+    color: #007bff;
+}
+
+.account-menu li a i {
+    width: 20px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.account-menu li.active a {
+    background: #e9ecef;
+    color: #007bff;
+    border-left: 3px solid #007bff;
+}
+
+.account-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.account-content h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.account-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.detail-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.detail-card h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.detail-card p {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.btn-edit {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-edit:hover {
+    background: #0056b3;
+}
+
+.recent-orders h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.orders-list {
+    margin-bottom: 1.5rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.order-info {
+    flex: 1;
+}
+
+.order-id {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.3rem;
+}
+
+.order-date, .order-status {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.order-total {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.btn-view {
+    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-view:hover {
+    background: #e9ecef;
+}
+
+.btn-view-all {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-view-all:hover {
+    background: #0056b3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .account-container {
+        flex-direction: column;
+    }
+    
+    .account-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .account-menu {
+        display: flex;
+        overflow-x: auto;
+    }
+    
+    .account-menu li {
+        border-bottom: none;
+        border-right: 1px solid #e5e5e5;
+        flex: 1;
+        min-width: max-content;
+    }
+    
+    .account-menu li a {
+        white-space: nowrap;
+    }
+    
+    .account-menu li.active a {
+        border-left: none;
+        border-bottom: 3px solid #007bff;
+    }
+}

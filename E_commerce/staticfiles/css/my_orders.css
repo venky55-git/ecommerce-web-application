@@ -1,0 +1,57 @@
+/* Orders Section Styles */
+.order-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.order-id {
+    font-weight: bold;
+}
+
+.order-status {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.order-status.approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.order-status.rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.order-status.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.order-details p {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.orders-section h2 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+}

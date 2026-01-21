@@ -1,0 +1,219 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    flex-direction: row;
+  }
+  
+  .left {
+    flex: 1;
+    background: linear-gradient( #d4eba7, #9be042d1);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    
+  }
+  
+  /*.left h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }*/
+  
+  .left p {
+    max-width: 600px;
+    line-height: 1.5;
+    margin-top: 5ch;
+    color: #322e2b;
+    font-size: large;
+    font-weight: 700;
+    padding-left: 3rem;
+    padding-bottom: 3ch;
+    
+
+  }
+
+  .left strong {
+    padding-left: 15ch;
+    color: #f97b2d;
+  }
+
+  .right {
+    flex: 1;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 30px;
+  }
+  
+  .register-form {
+    width: 100%;
+    max-width: 450px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .register-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .register-form input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: border 0.3s;
+  }
+  
+  .register-form input:focus {
+    border-color: #28a745;
+    outline: none;
+  }
+  
+  .register-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.3s;
+  }
+   .login-form a {
+      color: #28a745;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  
+  .sign_up-form button:hover {
+    background-color: #218838;
+    text-decoration: none;
+  }
+  
+  .register-form p {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* ✅ Mobile */
+  @media (max-width: 600px) {
+    body {
+      flex-direction: column;
+    }
+  
+    .left, .right {
+      width: 100%;
+      padding: 30px;
+    }
+  
+    .left {
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+  
+    .left h1 {
+      font-size: 2rem;
+    }
+  
+    .left p {
+      font-size: 1rem;
+    }
+  
+    .register-form {
+      padding: 25px;
+      box-shadow: none;
+    }
+  }
+  
+  /* ✅ Tablet */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    body {
+      flex-direction: column;
+    }
+  
+    .left, .right {
+      width: 100%;
+      padding: 40px;
+    }
+  
+    .left {
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+  
+    .left h1 {
+      font-size: 2.5rem;
+    }
+  
+    .left p {
+      font-size: 1.1rem;
+    }
+  }
+   .cart-animation {
+    position: relative;
+    height: 100px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    
+  }
+  hr{
+    border: #322e2b;
+  }
+  
+  #cart-icon {
+    width: 80px;
+    transition: transform 2s ease;
+    border-radius: 50px;
+  }
+  
+  .move-cart {
+    transform: translateX(220px);
+  }
+  
+  #cart-message {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+  }
+  
+  /* ✅ Laptop/Desktop */
+  @media (min-width: 1025px) {
+    .left, .right {
+      height: 100vh;
+    }
+  
+    .left {
+      padding: 60px 80px;
+    }
+  
+    .register-form {
+      padding: 40px;
+    }
+  }
