@@ -27,7 +27,7 @@ The project is deployed as a live demo using Render with Gunicorn and WhiteNoise
 
 ## Installation(Local Setup)⚙️
 1. Clone the repository
-   git clone https://github.com/your-username/ecommerce-web-application.git
+   git clone https://github.com/venky55-git/ecommerce-web-application.git
 
 2. Navigate to project folder
    cd E_commerce
