@@ -1,5 +1,5 @@
-## project title
-Django E-Commerce Web Application
+# project title
+E-Commerce Web Application by using Python and Django
 
 # project description
 This is a full-stack Django E-Commerce web application that allows users to browse products,
