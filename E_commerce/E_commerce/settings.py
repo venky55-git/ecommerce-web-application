@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -55,8 +57,8 @@ MIDDLEWARE = [
 
 
 ROOT_URLCONF = 'E_commerce.urls'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_REDIRECT_URL = 'home'  
 LOGIN_URL = '/login/'
 
@@ -175,3 +177,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 #--end reader static files settings
+
+# REANDER MEDIA FILES SETTINGS # cloudinary for media files
+#djjesyqez
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('djjesyqez'),
+    'API_KEY': os.environ.get('153764162499721'),
+    'API_SECRET': os.environ.get('0UGQQnBFXXNlSjJvRfJ7bWQV8-c'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
