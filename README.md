@@ -29,16 +29,16 @@ The project is deployed as a live demo using Render with Gunicorn and WhiteNoise
 1. Clone the repository
    git clone https://github.com/venky55-git/ecommerce-web-application.git
 
-2. Navigate to project folder
+2. Navigate to project folder:
    cd E_commerce
 
-3. Install dependencies
+3. Install dependencies :
    pip install -r requirements.txt
 
-4. Run migrations
+4. Run migrations :
    python manage.py migrate
 
-5. Start server
+5. Start server :
    python manage.py runserver
 
 ## Live Demo 🌐
